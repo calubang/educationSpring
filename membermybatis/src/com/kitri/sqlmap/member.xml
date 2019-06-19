@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.member.dao.MemberDao">
+	<select id="idCheck" parameterType="String" resultType="int">
+	select count(id) as count
+	from member
+	where id = #{searchId}
+	</select>
+	
+	<select id="zipSearch" parameterType="String" resultType="zipcode">
+	select 	case  
+					when length(to_char(new_post_code)) = 4 then '0'||to_char(new_post_code) 
+					else to_char(new_post_code)  
+				end zipcode,  
+				sido_kor sido, gugun_kor gugun,  
+				nvl(upmyon_kor, ' ') upmyon, doro_kor doro,  
+				case when building_refer_number != '0' 
+					then building_origin_number||'-'||building_refer_number  
+					else trim(to_char(building_origin_number, '99999')) 
+				end building_number, sigugun_building_name 
+		from 	postcode 
+		where 	doro_kor like '%'||#{searchAddress}||'%' 
+		or sigugun_building_name like '%'||#{searchAddress}||'%' 	
+	</select>
+	
+	<select id="registerMember" parameterType="member">
+	insert all     
+		into member(    
+		id    
+		, name    
+		, pass    
+		, emailid    
+		, emaildomain    
+		, joindate    
+		) values (    
+			#{id}
+			, #{name}    
+			, #{pass}    
+			, #{emailid}    
+			, #{emaildomain}      
+			, sysdate    
+		)    
+		into member_detail(    
+			id    
+			, zipcode    
+			, address    
+			, address_detail    
+			, tel1    
+			, tel2    
+			, tel3    
+		) values (    
+			#{id}    
+			, #{zipcode}    
+			, #{address}    
+			, #{addressDetail}    
+			, #{tel1}    
+			, #{tel2}    
+			, #{tel3} 
+		)    
+	select * from dual
+	</select>
+	
+	<select id="loginMember" parameterType="map" resultType="member">
+	select name, id, emailid, emaildomain, joindate
+	from member
+	where id = #{userId} and pass = #{userPass}
+	</select>
+	
+	<select id="passCheck" parameterType="map" resultType="memberdetail">
+	select	
+		member.id	
+		, member.name	
+		, member.pass	
+		, member.emailid	
+		, member.emaildomain	
+		, member.joindate	
+		, member_detail.zipcode	
+		, member_detail.address	
+		, member_detail.address_detail	as addressDetail
+		, member_detail.tel1	
+		, member_detail.tel2	
+		, member_detail.tel3	
+	from	
+		member
+		, MEMBER_DETAIL	
+	where 
+		member.id = MEMBER_DETAIL.ID	
+		and member.id = #{id}	
+		and member.pass = #{pass}	
+	</select>
+	
+	<update id="modifyMember" parameterType="memberdetail">
+	update MEMBER 
+	set 				
+		name = #{name}
+		, pass = #{pass}
+		, EMAILID =#{emailid}
+		, EMAILDOMAIN = #{emaildomain}
+	where  			
+		id = #{id}
+	</update>
+	
+	<update id="modifyMemberDetail" parameterType="memberdetail">
+	update MEMBER_DETAIL	
+	set	
+		ZIPCODE = #{zipcode}
+		, ADDRESS = #{address}
+		, ADDRESS_DETAIL = #{addressDetail}
+		, TEL1 = #{tel1}
+		, TEL2 = #{tel2}
+		, TEL3 = #{tel3}
+	where	
+		id = #{id}
+	</update>
+	
+	<delete id="deleteMemberDetail" parameterType="string">
+	delete from member_detail
+	where id = #{id}
+	</delete>
+	
+	<delete id="deleteMember" parameterType="string">
+	delete from member
+	where id = #{id}
+	</delete>
+	
+	
+</mapper>

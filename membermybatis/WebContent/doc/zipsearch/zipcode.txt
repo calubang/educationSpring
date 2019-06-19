@@ -1,0 +1,12 @@
+sqlldr userid/userpw errors=1000, rows=1000, control='d:zipcode.ctl';
+
+
+select 	new_post_code zipcode, sido_kor sido, gugun_kor gugun, 
+		nvl(upmyon_kor, ' ') upmyon, doro_kor doro, 
+		case when building_refer_number != '0'
+			then building_origin_number||'-'||building_refer_number 
+			else trim(to_char(building_origin_number, '99999'))
+		end building_number, sigugun_building_name
+from 	postcode
+where 	doro_kor like '%국민건강%'
+or sigugun_building_name like '%국민건강%';
