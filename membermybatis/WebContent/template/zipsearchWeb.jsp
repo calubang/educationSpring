@@ -111,7 +111,7 @@ function zipsearchResult() {
 		}
 	} else{
 		//로딩중...
-		zipListView.innerHTML = "<img src='<%=root%>/img/loading.gif' width='80' height='80'>";
+		zipListView.innerHTML = "<img src='${root}/img/loading.gif' width='80' height='80'>";
 	}
 }
 

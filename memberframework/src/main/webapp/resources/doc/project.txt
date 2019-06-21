@@ -1,0 +1,74 @@
+membermvc
+	src
+		- com.kitri.admin.controller
+			AdminController.java ( Servlet : /admin )
+			
+		- com.kitri.admin.service
+			AdminService.java (Interface)
+			AdminServiceImpl.java (Class)
+			
+		- com.kitri.admin.dao
+			AdminDao.java (Interface)
+			AdminDaoImpl.java (Class)
+			
+		- com.kitri.member.model
+			MemberDto.java
+			MemberDetailDto.java
+			ZipcodeDto.java
+		
+		- com.kitri.member.controller
+			MemberController.java ( Servlet : /user )
+			
+		- com.kitri.member.service
+			MemberService.java (Interface)
+			MemberServiceImpl.java (Class)
+			
+		- com.kitri.member.dao
+			MemberDao.java (Interface)
+			MemberDaoImpl.java (Class)
+		
+		- com.kitri.util
+			DBConnection.java
+			DBClose.java
+			Encoder.java
+	
+	webContent
+		* js : javascript
+			member.js
+		* css : *.css
+		* img : image file
+		
+		* admin
+			- member
+				memberlist.jsp
+			
+		* user폴더
+			- member폴더
+			  	member.jsp
+				  registerok.jsp
+				  registerfail.jsp
+				  idcheck.jsp
+				  zipsearch.jsp
+				  membermodify.jsp
+			  
+			- login폴더
+				  login.jsp
+				  loginok.jsp
+				  loginfail.jsp
+		
+		* index.jsp : main
+		
+		
+* httpSession & Cookie
+Cookie 			: Client	String	txt
+
+
+HttpSession	: server	memory Object
+
+
+
+오늘 본 상품 : 쿠키에 사진이나 key값정도만 담김
+
+찜목록(위시리스트) : 그냥 제품code같은 것만 담김, 세션에 넣을지 db에서 처리할지
+
+장바구니 : 객체가 담김

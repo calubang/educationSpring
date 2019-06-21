@@ -12,8 +12,8 @@ String root = request.getContextPath();
 <body>
 <div style="text-align: center">
 <h3>MVC를 이용한 방명록</h3>
-<a href="<%=root%>/user?act=join">회원가입</a><br>
-<a href="<%=root%>/user?act=login">로그인</a><br>
+<a href="${root}/user?act=join">회원가입</a><br>
+<a href="${root}/user?act=login">로그인</a><br>
 </div>
 </body>
 </html>

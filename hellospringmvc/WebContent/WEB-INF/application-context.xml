@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 비 web(application) 에 관련된 부분에 대한 xml(설정파일)  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="helloDao" class="com.kitri.hello.model.dao.HelloDaoImpl" init-method="makeCalendar"></bean>
+	
+	<bean id="helloService" class="com.kitri.hello.model.service.HelloServiceImpl">
+		<property name="dao" ref="helloDao"></property>
+	</bean>
+
+</beans>
