@@ -45,4 +45,12 @@ public class MemberDetailDto extends MemberDto{
 	public void setTel3(String tel3) {
 		this.tel3 = tel3;
 	}
+	@Override
+	public String toString() {
+		return "MemberDetailDto [tel1=" + tel1 + ", tel2=" + tel2 + ", tel3=" + tel3 + ", zipcode=" + zipcode
+				+ ", address=" + address + ", address_detail=" + address_detail + ", getId()=" + getId()
+				+ ", getName()=" + getName() + ", getPass()=" + getPass() + ", getEmailid()=" + getEmailid()
+				+ ", getEmaildomain()=" + getEmaildomain() + ", getJoindate()=" + getJoindate() + "]";
+	}
+	
 }

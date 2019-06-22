@@ -128,5 +128,27 @@
 	where id = #{id}
 	</delete>
 	
+	<select id="getMember" parameterType="String" resultType="memberdetail">
+	select	
+		member.id	
+		, member.name	
+		, member.pass	
+		, member.emailid	
+		, member.emaildomain	
+		, member.joindate	
+		, member_detail.zipcode	
+		, member_detail.address	
+		, member_detail.address_detail	
+		, member_detail.tel1	
+		, member_detail.tel2	
+		, member_detail.tel3	
+	from	
+		member
+		, MEMBER_DETAIL	
+	where 
+		member.id = MEMBER_DETAIL.ID	
+		and member.id = #{id}	
+	</select>
+	
 	
 </mapper>

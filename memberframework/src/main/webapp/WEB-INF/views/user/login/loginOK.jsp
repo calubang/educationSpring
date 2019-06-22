@@ -7,13 +7,21 @@
 	<script type="text/javascript">
 	function deleteMember() {
 		if(confirm("탈퇴 하시겠습니까?")){
-			$(location).attr("href", "${root}/user/delete.kitri");
+			$.ajax({
+				url : "${root}/usermodify/delete.kitri"
+				, type : "put"
+				, success : function(result){
+					//console.log(result);
+					alert(result.trim());
+				}
+				
+			});
 		}
 	}
 	</script>
 	<font size='15' color='green'>${userInfo.name}님, 환영합니다.</font>
 	<br><a href="${root}/user/logout.kitri">로그아웃</a>
-	<br><a href="${root}/user/modify.kitri">정보수정</a>
+	<br><a href="${root}/usermodify/modify.kitri">정보수정</a>
 	<br><a href="#" onclick="javascript:deleteMember();">회원탈퇴</a>
 	<c:if test="${userInfo.id == 'calubang'}">
 		<br><a href="${root}/admin/mvmemberlist.kitri">관리자</a>

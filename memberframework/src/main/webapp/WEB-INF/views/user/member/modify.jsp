@@ -2,40 +2,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kitri.member.model.MemberDetailDto"%>
 <%@ include file="/WEB-INF/views/template/header.jsp"%>
-<script type="text/javascript" src="${root}/js/httpRequest.js"></script>
-<%
-MemberDetailDto dto = (MemberDetailDto)request.getAttribute("userDetailInfo");
-if(dto != null){
-%>
+<c:set var="dto" value="${requestScope.userDetailInfo}"></c:set>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#name").val("<%=dto.getName()%>");
-	$("#id").val("<%=dto.getId()%>");
-	$("#emailid").val("<%=dto.getEmailid()%>");
-	$("#emaildomain").val("<%=dto.getEmaildomain()%>");
-	$("#tel1").val("<%=dto.getTel1()%>");
-	$("#tel2").val("<%=dto.getTel2()%>");
-	$("#tel3").val("<%=dto.getTel3()%>");
-	$("#zipcode").val("<%=dto.getZipcode()%>");
-	$("#address").val("<%=dto.getAddress()%>");
-	$("#address_detail").val("<%=dto.getAddress_detail()%>");
+	$("#name").val("${dto.name}");
+	$("#id").val("${dto.id}");
+	$("#emailid").val("${dto.emailid}");
+	$("#emaildomain").val("${dto.emaildomain}");
+	$("#tel1").val("${dto.tel1}");
+	$("#tel2").val("${dto.tel2}");
+	$("#tel3").val("${dto.tel3}");
+	$("#zipcode").val("${dto.zipcode}");
+	$("#address").val("${dto.address}");
+	$("#address_detail").val("${dto.address_detail}");
 
 	$("#modifyBtn").click(modify);
 });
 
 function modify() {
-	if(document.getElementById("name").value == ""){
+	if($("#name").val().trim().length == 0){
 		alert("이름 입력!!!!");
 		return;
-	} else if(document.getElementById("pass").value == ""){
+	} else if($("#pass").val().trim().length == 0){
 		alert("비밀번호 입력!!!");
 		return;
-	} else if(document.getElementById("pass").value != document.getElementById("passcheck").value){
+	} else if($("#pass").val() !=  $("#passcheck").val()){
 		alert("비밀번호를 체크해라!!!!");
 		return;
 	} else{
-		document.getElementById("memberform").action = "${root}/user";
-		document.getElementById("memberform").submit();
+		$("#memberform").attr("action", "${root}/usermodify/modify.kitri").submit();
 	}
 }
 </script>
@@ -110,18 +105,6 @@ function modify() {
 		</form>
 	</div>
 </div>
-<%
-
-} else{
-%>
-<script type="text/javascript">
-$(document).ready(function() {
-	document.location.href = "${root}/user/member/passCheck.jsp";
-});
-</script>
-<%
-}
-%>
 
 <%@ include file="/WEB-INF/views/user/member/zipsearch.jsp"%>
 <%@ include file="/WEB-INF/views/template/footer.jsp"%>

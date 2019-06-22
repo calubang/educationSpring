@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,7 @@ import com.kitri.member.service.MemberService;
 @SessionAttributes(names = {"userInfo"})
 public class MemberController {
 	@Autowired
-//	@Qualifier("impl1")
+	//@Qualifier("MemberServiceImpl")
 	private MemberService servie;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
