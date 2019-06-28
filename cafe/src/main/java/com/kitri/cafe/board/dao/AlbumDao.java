@@ -1,5 +1,15 @@
 package com.kitri.cafe.board.dao;
 
-public interface AlbumDao {
+import java.util.List;
+import java.util.Map;
 
+import com.kitri.cafe.board.model.AlbumDto;
+
+public interface AlbumDao {
+	//작성후 자신의 글번호를 return
+	public int writeArticle(AlbumDto albumDto);
+	public List<AlbumDto> listArticle(Map<String, String> parameter);
+	public AlbumDto viewArticle(int seq);
+	public int modifyArticle(AlbumDto albumDto);
+	public void deleteArticle(int seq);
 }

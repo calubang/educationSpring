@@ -15,7 +15,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<!--  -->
+	<!-- json 인코딩 문제  -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
