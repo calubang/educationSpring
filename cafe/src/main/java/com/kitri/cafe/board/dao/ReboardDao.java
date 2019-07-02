@@ -12,6 +12,7 @@ public interface ReboardDao {
 	public ReboardDto viewArticle(int seq);
 	public int modifyArticle(ReboardDto reboardDto);
 	public void deleteArticle(int seq);	
+	public void deleteReboardArticle(int seq);
 	
 	//reply 부분
 	public void updateStep(ReboardDto reboardDto);

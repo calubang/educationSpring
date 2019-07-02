@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -11,13 +12,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.cafe.board.model.MemoDto;
 import com.kitri.cafe.board.model.ReboardDto;
 import com.kitri.cafe.board.service.ReboardService;
 import com.kitri.cafe.common.service.CommonService;
@@ -175,6 +179,33 @@ public class ReboardController {
 		//System.out.println("parameter : " + parameter);
 		//System.out.println("seq : " + seq);
 		return path;
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public @ResponseBody String deleteConfirm(@RequestParam("seq") int seq, HttpSession session) {
+		String result = "impossible";
+		//로그인 확인
+		if(session.getAttribute("userInfo") == null) {
+			return result;
+		}
+		ReboardDto reboardDto = reboardService.getArticle(seq);
+		if(reboardDto.getReply() == 0 ) {
+			result = "possible";
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	public @ResponseBody int delete(@RequestBody Map<String, String> map, HttpSession session) {
+		//로그인 확인
+		//System.out.println(map);
+		if(session.getAttribute("userInfo") == null) {
+			return 0;
+		}
+		
+		reboardService.deleteArticle(Integer.parseInt(map.get("seq")));
+		return 1;
 	}
 	
 }

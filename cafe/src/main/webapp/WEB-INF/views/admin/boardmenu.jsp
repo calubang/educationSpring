@@ -55,7 +55,7 @@ function categoryClick() {
 		<p class="category">${boardmenu.cname}</p>
 		<div class="menu">
 		</c:if>
-			<a href="${root}/${boardmenu.control}/list?bcode=${boardmenu.bcode}&pg=1&key=&word=">${boardmenu.bname}</a>
+			<a href="${root}/${boardmenu.control}/write?bcode=${boardmenu.bcode}&pg=1&key=&word=">${boardmenu.bname}</a>
 		<c:if test="${!status.last && ccode != boardmenulist.get(status.index+1).ccode}">
 		</div>
 		</c:if>

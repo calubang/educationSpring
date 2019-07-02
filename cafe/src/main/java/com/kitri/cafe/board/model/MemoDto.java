@@ -1,6 +1,6 @@
 package com.kitri.cafe.board.model;
 
-public class MemoDto {
+public class MemoDto{
 	private int mseq;
 	private int seq;
 	private String id;

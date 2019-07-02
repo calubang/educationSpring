@@ -87,9 +87,8 @@ function replyBtnClick(){
 			colspan="5"><img src="${root}/img/board/e_dot.gif" width="4"
 			height="4" border="0" align="absmiddle"> <b>글내용</b> 
 			<textarea name="content" class="inp_02" cols="67" rows="25" scrollbars="no">
-	
-----------------------------------------------------------------------------------[원글]
 ${article.content}	
+----------------------------------------------------------------------------------[원글]
 		
 </textarea>
 		</td>

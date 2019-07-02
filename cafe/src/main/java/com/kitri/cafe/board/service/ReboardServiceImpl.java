@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kitri.cafe.board.dao.MemoDao;
 import com.kitri.cafe.board.dao.ReboardDao;
 import com.kitri.cafe.board.model.ReboardDto;
 import com.kitri.cafe.common.dao.CommonDao;
@@ -58,9 +59,12 @@ public class ReboardServiceImpl implements ReboardService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteArticle(int seq) {
-		// TODO Auto-generated method stub
-		
+		//답글이 있으면 답글도 지운다...
+		sqlSession.getMapper(MemoDao.class).deleteMemoSeq(seq);
+		sqlSession.getMapper(ReboardDao.class).deleteReboardArticle(seq);
+		sqlSession.getMapper(ReboardDao.class).deleteArticle(seq);
 	}
 
 	@Override

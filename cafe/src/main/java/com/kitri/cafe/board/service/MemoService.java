@@ -8,8 +8,8 @@ import com.kitri.cafe.board.model.MemoDto;
 
 public interface MemoService {
 	//작성후 자신의 글번호를 return
-	public void writeMemo(MemoDto albumDto);
-	public List<MemoDto> listMemo(Map<String, String> parameter);
-	public void modifyMemo(MemoDto albumDto);
-	public void deleteMemo(int mseq);	
+	public void writeMemo(MemoDto memoDto);
+	public String listMemo(int seq);
+	public String modifyMemo(MemoDto memoDto);
+	public String deleteMemo(int mseq, int seq);	
 }

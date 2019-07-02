@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.kitri.cafe.board.dao.ReboardDao">
-	<insert id="writeArticle" parameterType="reboardDto">
+<mapper namespace="com.kitri.cafe.board.dao.AlbumDao">
+	<insert id="writeArticle" parameterType="albumDto">
 	insert all
 		into board(
 			seq
@@ -27,27 +27,25 @@
 			, sysdate
 			, #{bcode}
 		)
-		into reboard(
-			rseq
+		into album(
+			aseq
 			, seq
-			, ref
-			, lev
-			, step
-			, pseq
-			, reply
+			, orign_picture
+			, save_picture
+			, savefolder
+			, type
 		)values(
-			reboard_rseq.nextval
+			album_aseq.nextval
 			, #{seq}
-			, #{ref}
-			, 0
-			, 0
-			, 0
+			, #{orignPicture}
+			, #{savePicture}
+			, #{saveFolder}
 			, 0
 		)
 	select * from dual
 	</insert>
 	
-	<select id="viewArticle" parameterType="int" resultType="reboardDto">
+	<select id="viewArticle" parameterType="int" resultType="albumDto">
 	select
 		board.seq
 		, board.name
@@ -58,20 +56,19 @@
 		, board.hit
 		, board.logtime
 		, board.bcode
-		, reboard.rseq
-		, reboard.seq
-		, reboard.ref
-		, reboard.lev
-		, reboard.step
-		, reboard.pseq
-		, reboard.reply
-	from board, reboard
+		, album.aseq 
+		, album.seq
+		, album.orign_picture orignPicture
+		, album.save_picture savePicture
+		, album.savefolder saveFolder
+		, album.type 
+	from board, album
 	where 
-		board.seq = reboard.seq
+		board.seq = album.seq
 		and board.seq = #{seq}
 	</select>
 	
-	<select id="listArticle" parameterType="map" resultType="reboardDto">
+	<select id="listArticle" parameterType="map" resultType="albumDto">
 	select
 	    rowboard.rn
 	    , rowboard.seq
@@ -86,12 +83,12 @@
 	        , to_char(rowboard.logtime, 'yy.mm.dd')
 	        ) logtime
 	    , rowboard.bcode
-	    , rowboard.rseq
-	    , rowboard.ref
-	    , rowboard.lev
-	    , rowboard.step
-	    , rowboard.pseq
-	    , rowboard.reply
+	    , rowboard.aseq 
+		, rowboard.seq
+		, rowboard.orignPicture
+		, rowboard.savePicture
+		, rowboard.saveFolder
+		, rowboard.type 
 	from (
 	    select
 	        rownum rn, orderboard.*
@@ -99,11 +96,16 @@
 	        select 
 	            b.seq, b.name, b.id, b.email, b.subject
 	            , b.content, b.hit, b.logtime, b.bcode
-	            , r.rseq, r.ref, r.lev, r.step, r.pseq, r.reply
+	            , a.aseq 
+				, a.seq
+				, a.orign_picture orignPicture
+				, a.save_picture savePicture
+				, a.savefolder saveFolder
+				, a.type 
 	        from 
 	            board b 
-	            inner join reboard r
-	                on b.seq = r.seq
+	            inner join album a
+	                on b.seq = a.seq
 	        where b.bcode = #{bcode}
 	        <if test="word != null and word != ''">
 	        	<if test="key == 'subject'">
@@ -113,7 +115,7 @@
 	        	and b.${key} = #{word}
 	        	</if>
 	        </if>
-	        order by r.ref desc, r.step
+	        order by b.seq desc
 	        ) orderboard
 	    where rownum &lt;= #{endRow}
 	    ) rowboard
